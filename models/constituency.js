@@ -48,7 +48,7 @@ constituencySchema
       {otherWinner: this.otherWinner2017}
     ];
     const winningResult = Math.max(results.map((e) => Object.values(e)[0]));
-    const winningParty = results.filter((e) => Object.keys(e).find(key => e[key] === winningResult));
+    const winningParty = results.find((e) => Object.keys(e).find(key => e[key] === winningResult));
     return (winningParty);
   });
 
