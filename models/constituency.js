@@ -8,26 +8,48 @@ const constituencySchema = mongoose.Schema({
   electorate2017: { type: Number, required: true },
   totalValidVotes2017: { type: Number, required: true },
   totalInvalidVotes2017: { type: Number, required: true },
-  con: { type: Number },
-  lab: { type: Number },
-  ld: { type: Number },
-  ukip: { type: Number },
-  green: { type: Number },
-  snp: { type: Number },
-  pc: { type: Number },
-  dup: { type: Number },
-  sf: { type: Number },
-  sdlp: { type: Number },
-  uup: { type: Number },
-  alliance: { type: Number },
-  other: { type: Number },
-  otherWinner: { type: Number }
+  con2017: { type: Number },
+  lab2017: { type: Number },
+  ld2017: { type: Number },
+  ukip2017: { type: Number },
+  green2017: { type: Number },
+  snp2017: { type: Number },
+  pc2017: { type: Number },
+  dup2017: { type: Number },
+  sf2017: { type: Number },
+  sdlp2017: { type: Number },
+  uup2017: { type: Number },
+  alliance2017: { type: Number },
+  other2017: { type: Number },
+  otherWinner2017: { type: Number }
 });
 
 constituencySchema
-  .virtual('turnout')
-  .get(function getTurnout() {
+  .virtual('turnout2017')
+  .get(function getTurnout2017() {
     return (this.totalValidVotes2017 + this.totalInvalidVotes2017)/this.electorate2017;
+  });
+
+constituencySchema
+  .virtual('winner2017')
+  .get(function getWinner2017() {
+    const results = [
+      {con: this.con2017},
+      {lab: this.lab2017},
+      {ld: this.ld2017},
+      {green: this.green2017},
+      {snp: this.snp2017},
+      {pc: this.pc2017},
+      {dup: this.dup2017},
+      {sf: this.sf2017},
+      {sdlp: this.sdlp2017},
+      {uup: this.uup2017},
+      {alliance: this.alliance2017},
+      {otherWinner: this.otherWinner2017}
+    ];
+    const winningResult = Math.max(results.map((e) => Object.values(e)[0]));
+    const winningParty = results.filter((e) => Object.keys(e).find(key => e[key] === winningResult));
+    return (winningParty);
   });
 
 
