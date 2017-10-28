@@ -47,8 +47,8 @@ constituencySchema
       {alliance: this.alliance2017},
       {otherWinner: this.otherWinner2017}
     ];
-    const winningResult = Math.max(results.map((e) => Object.values(e)[0]));
-    const winningParty = results.find((e) => Object.keys(e).find(key => e[key] === winningResult));
+    const winningResult = Math.max(...results.map((e) => Object.values(e)[0]));
+    const winningParty = Object.keys(results.find((e) => Object.keys(e).find(key => e[key] === winningResult)))[0];
     return (winningParty);
   });
 

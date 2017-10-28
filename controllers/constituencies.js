@@ -6,7 +6,6 @@ function constituenciesIndex(req, res, next) {
     .exec()
     .then(constituencies => {
       res.json(constituencies);
-      console.log(constituencies);
     })
     .catch(next);
 }
