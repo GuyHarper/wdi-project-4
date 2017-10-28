@@ -15,6 +15,7 @@
     "test": "yarn test:server && yarn test:client"
   },
   "dependencies": {
+    "axios": "^0.17.0",
     "body-parser": "^1.18.1",
     "d3-array": "^1.2.1",
     "d3-axis": "^1.0.8",

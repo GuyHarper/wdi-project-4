@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Map from './components/Map';
+import Main from './components/Main';
 
 import './scss/style.scss';
 
@@ -9,7 +9,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <Map />
+      <div>
+        <header>
+        </header>
+        <main>
+          <Main />
+        </main>
+      </div>
     );
   }
 }

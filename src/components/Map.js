@@ -8,11 +8,16 @@ class Map extends React.Component {
     const projection = geoMercator();
     const pathGenerator = geoPath().projection(projection);
     const constituencies = mapGeojsonExport.features
-      .map((d, index) => <path
-        key={index}
-        d={pathGenerator(d)}
-        className='constituency-path'
-      />);
+      .map((d, index) => {
+        return (
+          <path
+            key={index}
+            data-id={d.id}
+            d={pathGenerator(d)}
+            className='constituency-path'
+          />
+        );
+      });
     return (
       <svg width="500" height="700" viewBox="480 230 25 20">
         {constituencies}
