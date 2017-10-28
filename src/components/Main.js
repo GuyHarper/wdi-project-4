@@ -17,7 +17,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <Map />
+        {this.state.constituencies.length > 0 && <Map constituencyData={this.state} />}
       </div>
     );
   }
