@@ -1,8 +1,11 @@
 path.constituency-path {
-  stroke-width: 0.05;
-  stroke: #666;
+  stroke-width: 0.01;
+  stroke: #999;
   fill: #fafafa;
+  &.lab {
+    fill: #da1502;
+  }
   &:hover {
-    fill: #c3c3c3;
+    fill-opacity: 0.6;
   }
 }

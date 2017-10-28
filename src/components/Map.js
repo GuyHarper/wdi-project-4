@@ -5,19 +5,32 @@ import { geoMercator, geoPath } from 'd3-geo';
 
 class Map extends React.Component {
   render() {
-    const constituencyData = this.props.constituencyData;
+    const constituencies = this.props.constituencyData.constituencies;
     const projection = geoMercator();
     const pathGenerator = geoPath().projection(projection);
     const constituencyPaths = mapGeojsonExport.features
       .map((d, index) => {
-        return (
-          <path
-            key={index}
-            data-id={d.id}
-            d={pathGenerator(d)}
-            className='constituency-path'
-          />
-        );
+        const constituency = constituencies.find((e) => e.code === d.id);
+        if(constituency) {
+          console.log(constituency);
+          return (
+            <path
+              key={index}
+              data-id={d.id}
+              d={pathGenerator(d)}
+              className={`constituency-path ${constituency.winner2017}`}
+            />
+          );
+        } else {
+          return (
+            <path
+              key={index}
+              data-id={d.id}
+              d={pathGenerator(d)}
+              className='constituency-path'
+            />
+          );
+        }
       });
     return (
       <svg width="500" height="700" viewBox="480 230 25 20">

@@ -5,7 +5,7 @@ const { dbURI } = require('../config/environment');
 const Constituency = require('../models/constituency');
 
 const constituencyData = [
-  {name: 'Aberavon', code: 'W07000049', country: 'Wales', region: 'Wales', electorate2017: 49892, totalValidVotes2017: 33268, totalInvalidVotes2017: 57, con2017: 5901, lab2017: 22662, ld2017: 599, ukip2017: 1345, green2017: 0, snp2017: 0, pc2017: 2761, dup2017: 0, sf2017: 0, sdlp2017: 0, uup2017: 0, alliance2017: 0, other2017: 0, otherWinner2017: 0}
+  {name: 'East Lothian', code: 'S14000020', country: 'Scotland', region: 'Scotland', electorate2017: 79093, totalValidVotes2017: 55878, totalInvalidVotes2017: 57, con2017: 16540, lab2017: 20158, ld2017: 1738, ukip2017: 0, green2017: 0, snp2017: 17075, pc2017: 0, dup2017: 0, sf2017: 0, sdlp2017: 0, uup2017: 0, alliance2017: 0, other2017: 367, otherWinner2017: 0}
 ];
 
 mongoose.connect(dbURI, { useMongoClient: true })
