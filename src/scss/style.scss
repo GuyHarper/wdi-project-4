@@ -48,6 +48,36 @@ path.constituency-path {
 }
 
 div {
+  &.lab {
+    background-color: $lab;
+  }
+  &.con {
+    background-color: $con;
+  }
+  &.ld {
+    background-color: $ld;
+  }
+  &.snp {
+    background-color: $snp;
+  }
+  &.pc {
+    background-color: $pc;
+  }
+  &.green {
+    background-color: $green;
+  }
+  &.ukip {
+    background-color: $ukip;
+  }
+  &.otherWinner {
+    background-color: $otherWinner;
+  }
+  &.dup {
+    background-color: $dup;
+  }
+  &.sf {
+    background-color: $sf;
+  }
   &.seats-display-container {
     display: flex;
     flex-wrap: wrap;
@@ -56,35 +86,8 @@ div {
     min-width: 7px;
     min-height: 7px;
     margin: 1px;
-    &.lab {
-      background-color: $lab;
-    }
-    &.con {
-      background-color: $con;
-    }
-    &.ld {
-      background-color: $ld;
-    }
-    &.snp {
-      background-color: $snp;
-    }
-    &.pc {
-      background-color: $pc;
-    }
-    &.green {
-      background-color: $green;
-    }
-    &.ukip {
-      background-color: $ukip;
-    }
-    &.otherWinner {
-      background-color: $otherWinner;
-    }
-    &.dup {
-      background-color: $dup;
-    }
-    &.sf {
-      background-color: $sf;
-    }
+  }
+  &.vote-share {
+    height: 10px;
   }
 }

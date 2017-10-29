@@ -44,12 +44,16 @@ class Main extends React.Component {
     const partyCodes = this.state.voteShare.map((e) => Object.keys(e)[0]);
     const partyCodes2017 = partyCodes.map((e) => e.concat('2017'));
     const partyResults = [];
-    partyCodes2017.forEach((party) => {
-      const partyResult = this.state.constituencies.reduce((sum, constituency) => {
-        return sum + constituency[party];
+    const validTotal = this.state.constituencies.reduce((sum, constituency) => {
+      return sum + constituency['totalValidVotes2017'];
+    }, 0);
+    partyCodes2017.forEach((partyCode2017) => {
+      const partyTotal = this.state.constituencies.reduce((sum, constituency) => {
+        return sum + constituency[partyCode2017];
       }, 0);
+      const partyShare = partyTotal / validTotal;
       partyResults.push({
-        [party]: partyResult
+        [partyCode2017.substr(0, (partyCode2017.length - 4))]: partyShare
       });
     });
     this.setState({ voteShare: partyResults });
@@ -64,7 +68,7 @@ class Main extends React.Component {
           </div>
           <div>
             <h1>2017 General Election</h1>
-            <VoteShareChart constituencyData={this.state.voteShare} />
+            <VoteShareChart voteShare={this.state.voteShare} />
             <SeatsDisplay constituencyData={this.state.constituencies} />
           </div>
         </section>
