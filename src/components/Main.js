@@ -1,10 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
 import Map from './Map';
+import VoteShareChart from './VoteShareChart';
+import SeatsDisplay from './SeatsDisplay';
 
 class Main extends React.Component {
   state = {
-    constituencies: []
+    constituencies: [],
+    totalSeats: []
   }
 
   componentWillMount() {
@@ -15,11 +18,20 @@ class Main extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.constituencies.length > 0 && <Map constituencyData={this.state} />}
-      </div>
-    );
+    if(this.state.constituencies.length > 0) {
+      return (
+        <section>
+          <div>
+            <Map constituencyData={this.state.constituencies} />
+          </div>
+          <div>
+            <h1>2017 General Election</h1>
+            <VoteShareChart constituencyData={this.state.constituencies} />
+            <SeatsDisplay constituencyData={this.state.constituencies} />
+          </div>
+        </section>
+      );
+    } else return false;
   }
 }
 

@@ -5,14 +5,13 @@ import { geoMercator, geoPath } from 'd3-geo';
 
 class Map extends React.Component {
   render() {
-    const constituencies = this.props.constituencyData.constituencies;
+    const constituencies = this.props.constituencyData;
     const projection = geoMercator();
     const pathGenerator = geoPath().projection(projection);
     const constituencyPaths = mapGeojsonExport.features
       .map((d, index) => {
         const constituency = constituencies.find((e) => e.code === d.id);
         if(constituency) {
-          console.log(constituency);
           return (
             <path
               key={index}

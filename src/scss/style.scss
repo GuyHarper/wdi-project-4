@@ -1,11 +1,90 @@
+$lab: #d50000;
+$con: #0087dc;
+$ld: #fdbb30;
+$snp: #fff95d;
+$pc: #3f8428;
+$green: #008066;
+$ukip: #b3009d;
+$otherWinner: #aaa;
+$dup: #a11233;
+$sf: #00623f;
+
 path.constituency-path {
   stroke-width: 0.01;
   stroke: #999;
-  fill: #fafafa;
   &.lab {
-    fill: #da1502;
+    fill: $lab;
+  }
+  &.con {
+    fill: $con;
+  }
+  &.ld {
+    fill: $ld;
+  }
+  &.snp {
+    fill: $snp;
+  }
+  &.pc {
+    fill: $pc;
+  }
+  &.green {
+    fill: $green;
+  }
+  &.ukip {
+    fill: $ukip;
+  }
+  &.otherWinner {
+    fill: $otherWinner;
+  }
+  &.dup {
+    fill: $dup;
+  }
+  &.sf {
+    fill: $sf;
   }
   &:hover {
     fill-opacity: 0.6;
+  }
+}
+
+div {
+  &.seats-display-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &.seat-display {
+    min-width: 7px;
+    min-height: 7px;
+    margin: 1px;
+    &.lab {
+      background-color: $lab;
+    }
+    &.con {
+      background-color: $con;
+    }
+    &.ld {
+      background-color: $ld;
+    }
+    &.snp {
+      background-color: $snp;
+    }
+    &.pc {
+      background-color: $pc;
+    }
+    &.green {
+      background-color: $green;
+    }
+    &.ukip {
+      background-color: $ukip;
+    }
+    &.otherWinner {
+      background-color: $otherWinner;
+    }
+    &.dup {
+      background-color: $dup;
+    }
+    &.sf {
+      background-color: $sf;
+    }
   }
 }
