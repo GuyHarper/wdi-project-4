@@ -88,7 +88,20 @@ class Main extends React.Component {
       changedVoteShareArray.forEach((party) => {
         changedVoteSharePercentages[party] = (modifiedVoteShare[party] - this.state.voteShare[party])  / this.state.voteShare[party];
       });
-      this.setState({ modifiedVoteShare: modifiedVoteShare, changedVoteSharePercentages: changedVoteSharePercentages });
+      this.setState({ modifiedVoteShare: modifiedVoteShare, changedVoteSharePercentages: changedVoteSharePercentages }, () => this.applyModifiersToConstituencyData());
+    }
+  }
+
+  applyModifiersToConstituencyData = () => {
+    if(this.state.modifiers.swings.length > 0) {
+      const constituencies = [...this.state.constituencies];
+      Object.keys(this.state.changedVoteSharePercentages).forEach((partyCode) => {
+        constituencies.map((constituency) => {
+          const newVote = parseInt(constituency[partyCode.concat('2017')] * (1 + this.state.changedVoteSharePercentages[partyCode]));
+          constituency[partyCode] = newVote;
+          if(constituency.winner2017 !== partyCode && newVote > constituency[(constituency.winner2017).concat('2017')]) constituency.winner = partyCode;
+        });
+      });
     }
   }
 
