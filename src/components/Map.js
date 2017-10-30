@@ -12,14 +12,12 @@ class Map extends React.Component {
       .map((d, index) => {
         const constituency = constituencies.find((e) => e.code === d.id);
         if(constituency) {
-          let winner = null;
-          constituency.winner ? winner = constituency.winner : winner = constituency.winner2017;
           return (
             <path
               key={index}
               data-id={d.id}
               d={pathGenerator(d)}
-              className={`constituency-path ${winner}`}
+              className={`constituency-path ${constituency.winner || constituency.winner2017}`}
             />
           );
         } else {

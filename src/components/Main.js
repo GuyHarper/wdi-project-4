@@ -38,8 +38,7 @@ class Main extends React.Component {
     modifiedTotalSeats: [],
     modifiers: {
       swings: []
-    },
-    changedVoteSharePercentages: {}
+    }
   }
 
   componentWillMount() {
@@ -67,7 +66,10 @@ class Main extends React.Component {
   }
 
   setModifier = (object) => {
-    const swings = [...this.state.modifiers.swings];
+    const swings = this.state.modifiers.swings.filter((swing) => {
+      const partyArray = [swing.from, swing.to];
+      return !(partyArray.indexOf(object.from) !== -1 && partyArray.indexOf(object.to) !== -1 );
+    });
     swings.push(object);
     this.setState({ modifiers: { swings: swings}}, () => {
       this.applyModifiersToVoteShare();
@@ -76,32 +78,35 @@ class Main extends React.Component {
 
   applyModifiersToVoteShare = () => {
     if(this.state.modifiers.swings.length > 0) {
-      const changedVoteShareArray = [];
-      const changedVoteSharePercentages = {};
       const modifiedVoteShare = {...this.state.voteShare};
       this.state.modifiers.swings.forEach((swing) => {
         modifiedVoteShare[swing.from] = (this.state.voteShare[swing.from] - swing.amount / 100);
         modifiedVoteShare[swing.to] = (this.state.voteShare[swing.to] + swing.amount / 100);
-        if(changedVoteShareArray.indexOf(swing.from) === -1) changedVoteShareArray.push(swing.from);
-        if(changedVoteShareArray.indexOf(swing.to) === -1) changedVoteShareArray.push(swing.to);
       });
-      changedVoteShareArray.forEach((party) => {
-        changedVoteSharePercentages[party] = (modifiedVoteShare[party] - this.state.voteShare[party])  / this.state.voteShare[party];
-      });
-      this.setState({ modifiedVoteShare: modifiedVoteShare, changedVoteSharePercentages: changedVoteSharePercentages }, () => this.applyModifiersToConstituencyData());
+      this.setState({ modifiedVoteShare: modifiedVoteShare }, () => this.applyModifiersToConstituencyData());
     }
   }
 
   applyModifiersToConstituencyData = () => {
     if(this.state.modifiers.swings.length > 0) {
       const constituencies = [...this.state.constituencies];
-      Object.keys(this.state.changedVoteSharePercentages).forEach((partyCode) => {
+      this.state.modifiers.swings.forEach((swing) => {
+        const percentageSwing = (swing.amount / 100) / this.state.voteShare[swing.from];
         constituencies.map((constituency) => {
-          const newVote = parseInt(constituency[partyCode.concat('2017')] * (1 + this.state.changedVoteSharePercentages[partyCode]));
-          constituency[partyCode] = newVote;
-          if(constituency.winner2017 !== partyCode && newVote > constituency[(constituency.winner2017).concat('2017')]) constituency.winner = partyCode;
+          const votesSwing = parseInt(constituency[(swing.from).concat('2017')] * percentageSwing);
+          const newFrom = constituency[(swing.from).concat('2017')] - votesSwing;
+          const newTo = constituency[(swing.to).concat('2017')] + votesSwing;
+          constituency[swing.from] = newFrom;
+          constituency[swing.to] = newTo;
+          if(!constituency.winner) {
+            if(newTo > constituency[(constituency.winner2017).concat('2017')]) constituency.winner = swing.to;
+          } else {
+            if(newTo > constituency[constituency.winner]) constituency.winner = swing.to;
+            if(newFrom > constituency[constituency.winner] && newFrom > newTo ) constituency.winner = swing.from;
+          }
         });
       });
+      this.setState({ constituencies: constituencies }, () => console.log(this.state));
     }
   }
 
