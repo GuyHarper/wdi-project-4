@@ -12,12 +12,21 @@ class VoteShareChart extends React.Component {
             width: partyResult[party] * chartWidth
           };
           return(
-            <div key={party}>
-              <div className={`vote-share ${party}`} style={style}>
+            <div key={party} className="row">
+              <div className="col-2 party-label justify-content-end">
+                <p>
+                  {party}
+                </p>
               </div>
-              <p>
-                {(partyResult[party] * 100).toFixed(2)}
-              </p>
+              <div className="col-10">
+                <div className="row align-items-center">
+                  <div className={`vote-share ${party}`} style={style}>
+                  </div>
+                  <p className="vote-share-percentage">
+                    {(partyResult[party] * 100).toFixed(2)}
+                  </p>
+                </div>
+              </div>
             </div>
           );
         })}

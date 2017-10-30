@@ -12,7 +12,7 @@ class App extends React.Component {
       <div>
         <header>
         </header>
-        <main>
+        <main className="container-fluid">
           <Main />
         </main>
       </div>

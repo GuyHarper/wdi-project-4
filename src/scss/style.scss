@@ -1,13 +1,5 @@
-$lab: #d50000;
-$con: #0087dc;
-$ld: #fdbb30;
-$snp: #fff95d;
-$pc: #3f8428;
-$green: #008066;
-$ukip: #b3009d;
-$otherWinner: #aaa;
-$dup: #a11233;
-$sf: #00623f;
+@import './bootstrap/bootstrap.scss';
+@import './_custom-variables.scss';
 
 path.constituency-path {
   stroke-width: 0.01;
@@ -34,7 +26,7 @@ path.constituency-path {
     fill: $ukip;
   }
   &.otherWinner {
-    fill: $otherWinner;
+    fill: $other;
   }
   &.dup {
     fill: $dup;
@@ -69,8 +61,11 @@ div {
   &.ukip {
     background-color: $ukip;
   }
+  &.other {
+    background-color: $other;
+  }
   &.otherWinner {
-    background-color: $otherWinner;
+    @extend .other;
   }
   &.dup {
     background-color: $dup;
@@ -81,13 +76,22 @@ div {
   &.seats-display-container {
     display: flex;
     flex-wrap: wrap;
+    .seat-display {
+      min-width: 7px;
+      min-height: 7px;
+      margin: 1px;
+    }
   }
-  &.seat-display {
-    min-width: 7px;
-    min-height: 7px;
-    margin: 1px;
-  }
-  &.vote-share {
-    height: 10px;
+  &.vote-share-chart {
+    .party-label {
+      display: flex;
+    }
+    .vote-share {
+      height: 25px;
+    }
+    .vote-share-percentage {
+      margin: 0 0 0 5px;
+      font-size: $font-size-sm;
+    }
   }
 }

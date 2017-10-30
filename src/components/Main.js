@@ -62,11 +62,11 @@ class Main extends React.Component {
   render() {
     if(this.state.constituencies.length > 0) {
       return (
-        <section>
-          <div>
+        <section className="row">
+          <div className="col-6">
             <Map constituencyData={this.state.constituencies} />
           </div>
-          <div>
+          <div className="col-6">
             <h1>2017 General Election</h1>
             <VoteShareChart voteShare={this.state.voteShare} />
             <SeatsDisplay constituencyData={this.state.constituencies} />
