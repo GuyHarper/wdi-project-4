@@ -4,7 +4,7 @@ class VoteShareChart extends React.Component {
   render() {
     const chartWidth = 300;
     let voteShare = [];
-    if(this.props.modifiedVoteShare.length > 0) {
+    if(this.props.modifiedVoteShare) {
       voteShare = this.props.modifiedVoteShare;
     } else {
       voteShare = this.props.voteShare;

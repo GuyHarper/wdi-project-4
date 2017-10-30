@@ -23,7 +23,6 @@ class Main extends React.Component {
       alliance: 0,
       other: 0
     },
-    modifiedVoteShare: [],
     totalSeats: [
       { lab: 0 },
       { con: 0 },
@@ -40,7 +39,7 @@ class Main extends React.Component {
     modifiers: {
       swings: []
     },
-    changedVoteShare: []
+    changedVoteSharePercentages: {}
   }
 
   componentWillMount() {
@@ -77,12 +76,19 @@ class Main extends React.Component {
 
   applyModifiersToVoteShare = () => {
     if(this.state.modifiers.swings.length > 0) {
-      const modifiedVoteShare = this.state.voteShare;
+      const changedVoteShareArray = [];
+      const changedVoteSharePercentages = {};
+      const modifiedVoteShare = {...this.state.voteShare};
       this.state.modifiers.swings.forEach((swing) => {
         modifiedVoteShare[swing.from] = (this.state.voteShare[swing.from] - swing.amount / 100);
         modifiedVoteShare[swing.to] = (this.state.voteShare[swing.to] + swing.amount / 100);
+        if(changedVoteShareArray.indexOf(swing.from) === -1) changedVoteShareArray.push(swing.from);
+        if(changedVoteShareArray.indexOf(swing.to) === -1) changedVoteShareArray.push(swing.to);
       });
-      this.setState({ modifiedVoteShare: modifiedVoteShare });
+      changedVoteShareArray.forEach((party) => {
+        changedVoteSharePercentages[party] = (modifiedVoteShare[party] - this.state.voteShare[party])  / this.state.voteShare[party];
+      });
+      this.setState({ modifiedVoteShare: modifiedVoteShare, changedVoteSharePercentages: changedVoteSharePercentages });
     }
   }
 
