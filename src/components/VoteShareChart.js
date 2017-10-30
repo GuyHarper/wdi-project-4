@@ -5,16 +5,15 @@ class VoteShareChart extends React.Component {
     const chartWidth = 300;
     let voteShare = [];
     if(this.props.modifiedVoteShare.length > 0) {
-      voteShare = this.props.modifiedVoteShare.sort((a, b) => Object.values(b)[0] - Object.values(a)[0]);
+      voteShare = this.props.modifiedVoteShare;
     } else {
-      voteShare = this.props.voteShare.sort((a, b) => Object.values(b)[0] - Object.values(a)[0]);
+      voteShare = this.props.voteShare;
     }
     return (
       <div className="vote-share-chart">
-        {voteShare.map((partyResult) => {
-          const party = Object.keys(partyResult)[0];
+        {Object.keys(voteShare).map((party) => {
           const style = {
-            width: partyResult[party] * chartWidth
+            width: voteShare[party] * chartWidth
           };
           return(
             <div key={party} className="row">
@@ -28,7 +27,7 @@ class VoteShareChart extends React.Component {
                   <div className={`vote-share ${party}`} style={style}>
                   </div>
                   <p className="vote-share-percentage">
-                    {(partyResult[party] * 100).toFixed(2)}
+                    {(voteShare[party] * 100).toFixed(2)}
                   </p>
                 </div>
               </div>

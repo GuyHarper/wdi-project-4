@@ -29,13 +29,14 @@ class ModifiersDisplay extends React.Component {
     const newState = { ...this.state };
     newState.modifiers.setSwing.amount = e.target.value;
     this.setState({ ...newState });
+  }
+
+  handleSwingMouseUp = () => {
     this.props.setModifier(this.state.modifiers.setSwing);
   }
 
   render() {
-    const parties = this.props.voteShare.map((partyResult) => {
-      return Object.keys(partyResult)[0];
-    });
+    const parties = Object.keys(this.props.voteShare);
     return(
       <div>
         <h2>Swing</h2>
@@ -59,7 +60,7 @@ class ModifiersDisplay extends React.Component {
             })}
           </select>
           {this.state.modifiers.setSwing.from && this.state.modifiers.setSwing.to && (this.state.modifiers.setSwing.from !== this.state.modifiers.setSwing.to) &&
-            <input type="range" min="-50" max="50" defaultValue="0" step="0.1" onChange={this.handleSwingChange}/>
+            <input type="range" min="-50" max="50" defaultValue="0" step="0.1" onChange={this.handleSwingChange} onMouseUp={this.handleSwingMouseUp}/>
           }
           <p>{this.state.modifiers.setSwing.amount}</p>
         </form>
