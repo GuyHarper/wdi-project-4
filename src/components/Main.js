@@ -8,6 +8,7 @@ import ModifiersDisplay from './ModifiersDisplay';
 class Main extends React.Component {
   state = {
     constituencies: [],
+    modifiedConstituencies: [],
     voteShare: [
       { lab: 0 },
       { con: 0 },
@@ -23,6 +24,7 @@ class Main extends React.Component {
       { uup: 0 },
       { alliance: 0 }
     ],
+    modifiedVoteShare: [],
     totalSeats: [
       { lab: 0 },
       { con: 0 },
@@ -35,12 +37,10 @@ class Main extends React.Component {
       { dup: 0 },
       { sf: 0 }
     ],
-    modifiers: [
-      {
-        swings: {
-        }
-      }
-    ]
+    modifiedTotalSeats: [],
+    modifiers: {
+      swings: []
+    }
   }
 
   componentWillMount() {
@@ -70,8 +70,30 @@ class Main extends React.Component {
   }
 
   setModifier = (object) => {
-    console.log(object);
-    this.setState({ modifiers: { swings: {object}}});
+    const swings = [...this.state.modifiers.swings];
+    swings.push(object);
+    this.setState({ modifiers: { swings: swings}}, () => this.applyModifiers());
+  }
+
+  applyModifiers = () => {
+    if(this.state.modifiers.swings.length > 0) {
+      let modifiedVoteShare = [...this.state.voteShare];
+      this.state.modifiers.swings.forEach((swing) => {
+        const from = this.state.voteShare.find((e) => {
+          return Object.keys(e)[0] === swing.from;
+        });
+        const to = this.state.voteShare.find((e) => {
+          return Object.keys(e)[0] === swing.to;
+        });
+        const newVoteShareFrom = {[swing.from]: (from[swing.from] - swing.amount / 100)};
+        const newVoteShareTo = {[swing.to]: (to[swing.to] + swing.amount / 100)};
+        modifiedVoteShare = modifiedVoteShare.filter((e) => {
+          return Object.keys(e)[0] !== swing.from && Object.keys(e)[0] !== swing.to;
+        });
+        modifiedVoteShare.push(newVoteShareFrom, newVoteShareTo);
+      });
+      this.setState({ modifiedVoteShare: modifiedVoteShare });
+    }
   }
 
   render() {
@@ -83,7 +105,7 @@ class Main extends React.Component {
           </div>
           <div className="col-6">
             <h1>2017 General Election</h1>
-            <VoteShareChart voteShare={this.state.voteShare} modifiers={this.state.modifiers}/>
+            <VoteShareChart voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
             <ModifiersDisplay voteShare={this.state.voteShare} setModifier={this.setModifier}/>
             <SeatsDisplay constituencyData={this.state.constituencies} />
           </div>

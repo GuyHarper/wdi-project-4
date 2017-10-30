@@ -3,7 +3,12 @@ import React from 'react';
 class VoteShareChart extends React.Component {
   render() {
     const chartWidth = 300;
-    const voteShare = this.props.voteShare.sort((a, b) => Object.values(b)[0] - Object.values(a)[0]);
+    let voteShare = [];
+    if(this.props.modifiedVoteShare.length > 0) {
+      voteShare = this.props.modifiedVoteShare.sort((a, b) => Object.values(b)[0] - Object.values(a)[0]);
+    } else {
+      voteShare = this.props.voteShare.sort((a, b) => Object.values(b)[0] - Object.values(a)[0]);
+    }
     return (
       <div className="vote-share-chart">
         {voteShare.map((partyResult) => {
