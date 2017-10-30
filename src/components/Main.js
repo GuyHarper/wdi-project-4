@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Map from './Map';
 import VoteShareChart from './VoteShareChart';
 import SeatsDisplay from './SeatsDisplay';
+import ModifiersDisplay from './ModifiersDisplay';
 
 class Main extends React.Component {
   state = {
@@ -17,7 +18,10 @@ class Main extends React.Component {
       { ukip: 0 },
       { other: 0 },
       { dup: 0 },
-      { sf: 0 }
+      { sf: 0 },
+      { sdlp: 0 },
+      { uup: 0 },
+      { alliance: 0 }
     ],
     totalSeats: [
       { lab: 0 },
@@ -30,6 +34,12 @@ class Main extends React.Component {
       { other: 0 },
       { dup: 0 },
       { sf: 0 }
+    ],
+    modifiers: [
+      {
+        swings: {
+        }
+      }
     ]
   }
 
@@ -59,6 +69,11 @@ class Main extends React.Component {
     this.setState({ voteShare: partyResults });
   }
 
+  setModifier = (object) => {
+    console.log(object);
+    this.setState({ modifiers: { swings: {object}}});
+  }
+
   render() {
     if(this.state.constituencies.length > 0) {
       return (
@@ -68,7 +83,8 @@ class Main extends React.Component {
           </div>
           <div className="col-6">
             <h1>2017 General Election</h1>
-            <VoteShareChart voteShare={this.state.voteShare} />
+            <VoteShareChart voteShare={this.state.voteShare} modifiers={this.state.modifiers}/>
+            <ModifiersDisplay voteShare={this.state.voteShare} setModifier={this.setModifier}/>
             <SeatsDisplay constituencyData={this.state.constituencies} />
           </div>
         </section>
