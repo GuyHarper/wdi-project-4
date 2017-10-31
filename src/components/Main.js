@@ -94,6 +94,7 @@ class Main extends React.Component {
       partyCodes.forEach((partyCode) => {
         delete constituency[partyCode];
       });
+      delete constituency.winner;
     });
     this.setState({ constituencies: constituencies}, () => this.applyModifiersToConstituencyData());
   }
@@ -121,7 +122,7 @@ class Main extends React.Component {
           }
         });
       });
-      this.setState({ constituencies: constituencies });
+      this.setState({ constituencies: constituencies }, () => console.log(this.state));
     }
   }
 
