@@ -65,13 +65,8 @@ class Main extends React.Component {
     this.setState({ voteShare: partyResults });
   }
 
-  setModifier = (object) => {
-    const swings = this.state.modifiers.swings.filter((swing) => {
-      const partyArray = [swing.from, swing.to];
-      return !(partyArray.indexOf(object.from) !== -1 && partyArray.indexOf(object.to) !== -1 );
-    });
-    swings.push(object);
-    this.setState({ modifiers: { swings: swings}}, () => {
+  setModifier = (swings) => {
+    this.setState({ modifiers: { swings: swings }}, () => {
       this.applyModifiersToVoteShare();
     });
   }

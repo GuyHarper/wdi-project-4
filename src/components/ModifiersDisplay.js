@@ -3,46 +3,42 @@ import React from 'react';
 class ModifiersDisplay extends React.Component {
 
   state = {
-    modifiers: {
-      swings: [],
-      setSwing: {
-        from: '',
-        to: '',
-        amount: 0
-      }
+    swings: [],
+    setSwing: {
+      from: '',
+      to: '',
+      amount: 0
     }
   }
 
-  handlePartySelectChange = (e) => {
-    if(e.target.getAttribute('data-fromto') === 'from') {
-      const newState = { ...this.state };
-      newState.modifiers.setSwing.from = e.target.value;
-      this.setState({ ...newState });
-    } else if(e.target.getAttribute('data-fromto') === 'to') {
-      const newState = { ...this.state };
-      newState.modifiers.setSwing.to = e.target.value;
-      this.setState({ ...newState });
-    }
-  }
-
-  handleSwingChange = (e) => {
-    const newState = { ...this.state };
-    newState.modifiers.setSwing.amount = e.target.value;
-    this.setState({ ...newState });
+  handleChange = ({ target: { name, value }}) => {
+    const setSwing = Object.assign({}, this.state.setSwing, { [name]: value });
+    this.setState({ setSwing });
   }
 
   handleSwingMouseUp = () => {
-    this.props.setModifier(this.state.modifiers.setSwing);
+    this.setState(prevState => {
+
+      const { swings, setSwing } = prevState;
+      const existingSwingIndex = swings.findIndex(swing => swing.from === setSwing.from && swing.to === setSwing.to);
+      console.log(existingSwingIndex);
+      if(existingSwingIndex >= 0) swings.splice(existingSwingIndex, 1);
+
+      swings.push(prevState.setSwing);
+      const modifiers = Object.assign({}, prevState, { swings });
+      return { modifiers };
+    }, () => this.props.setModifier(this.state.swings));
   }
 
   render() {
     const parties = Object.keys(this.props.voteShare);
+    const { setSwing } = this.state;
     return(
       <div>
         <h2>Swing</h2>
         <form>
           <label htmlFor="swing-from">From</label>
-          <select id="swing-from" defaultValue="" onChange={this.handlePartySelectChange} data-fromto="from">
+          <select id="swing-from" value={setSwing.from} onChange={this.handleChange} name="from">
             <option value="" disabled>Select party</option>
             {parties.map((party) => {
               return(
@@ -51,7 +47,7 @@ class ModifiersDisplay extends React.Component {
             })}
           </select>
           <label htmlFor="swing-to">to</label>
-          <select id="swing-to" defaultValue="" onChange={this.handlePartySelectChange} data-fromto="to">
+          <select id="swing-to" value={setSwing.to} onChange={this.handleChange} name="to">
             <option value="" disabled>Select party</option>
             {parties.map((party) => {
               return(
@@ -59,10 +55,10 @@ class ModifiersDisplay extends React.Component {
               );
             })}
           </select>
-          {this.state.modifiers.setSwing.from && this.state.modifiers.setSwing.to && (this.state.modifiers.setSwing.from !== this.state.modifiers.setSwing.to) &&
-            <input type="range" min="0" max={this.props.voteShare[this.state.modifiers.setSwing.from] * 100} defaultValue="0" step="0.1" onChange={this.handleSwingChange} onMouseUp={this.handleSwingMouseUp}/>
+          {setSwing.from && setSwing.to && (setSwing.from !== setSwing.to) &&
+            <input type="range" min="0" max={this.props.voteShare[setSwing.from] * 100} defaultValue="0" step="0.1" name="amount" onChange={this.handleChange} onMouseUp={this.handleSwingMouseUp}/>
           }
-          <p>{this.state.modifiers.setSwing.amount}</p>
+          <p>{setSwing.amount}</p>
         </form>
       </div>
     );
