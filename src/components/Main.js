@@ -83,8 +83,19 @@ class Main extends React.Component {
         modifiedVoteShare[swing.from] = (this.state.voteShare[swing.from] - swing.amount / 100);
         modifiedVoteShare[swing.to] = (this.state.voteShare[swing.to] + swing.amount / 100);
       });
-      this.setState({ modifiedVoteShare: modifiedVoteShare }, () => this.applyModifiersToConstituencyData());
+      this.setState({ modifiedVoteShare: modifiedVoteShare }, () => this.resetConstituencyData());
     }
+  }
+
+  resetConstituencyData = () => {
+    const constituencies = [...this.state.constituencies];
+    const partyCodes = Object.keys(this.state.voteShare);
+    constituencies.forEach((constituency) => {
+      partyCodes.forEach((partyCode) => {
+        delete constituency[partyCode];
+      });
+    });
+    this.setState({ constituencies: constituencies}, () => this.applyModifiersToConstituencyData());
   }
 
   applyModifiersToConstituencyData = () => {
@@ -94,8 +105,12 @@ class Main extends React.Component {
         const percentageSwing = (swing.amount / 100) / this.state.voteShare[swing.from];
         constituencies.map((constituency) => {
           const votesSwing = parseInt(constituency[(swing.from).concat('2017')] * percentageSwing);
-          const newFrom = constituency[(swing.from).concat('2017')] - votesSwing;
-          const newTo = constituency[(swing.to).concat('2017')] + votesSwing;
+          let oldFrom = '';
+          let oldTo = '';
+          constituency[swing.from] ? oldFrom = swing.from : oldFrom = (swing.from).concat('2017');
+          constituency[swing.to] ? oldTo = swing.to : oldTo = (swing.to).concat('2017');
+          const newFrom = constituency[oldFrom] - votesSwing;
+          const newTo = constituency[oldTo] + votesSwing;
           constituency[swing.from] = newFrom;
           constituency[swing.to] = newTo;
           if(!constituency.winner) {
@@ -106,7 +121,7 @@ class Main extends React.Component {
           }
         });
       });
-      this.setState({ constituencies: constituencies }, () => console.log(this.state));
+      this.setState({ constituencies: constituencies });
     }
   }
 

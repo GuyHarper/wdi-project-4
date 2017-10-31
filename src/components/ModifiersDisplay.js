@@ -60,7 +60,7 @@ class ModifiersDisplay extends React.Component {
             })}
           </select>
           {this.state.modifiers.setSwing.from && this.state.modifiers.setSwing.to && (this.state.modifiers.setSwing.from !== this.state.modifiers.setSwing.to) &&
-            <input type="range" min="-50" max="50" defaultValue="0" step="0.1" onChange={this.handleSwingChange} onMouseUp={this.handleSwingMouseUp}/>
+            <input type="range" min="0" max={this.props.voteShare[this.state.modifiers.setSwing.from] * 100} defaultValue="0" step="0.1" onChange={this.handleSwingChange} onMouseUp={this.handleSwingMouseUp}/>
           }
           <p>{this.state.modifiers.setSwing.amount}</p>
         </form>
