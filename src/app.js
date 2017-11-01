@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import LandingPage from './components/LandingPage';
 import ProjectionsNew from './components/projections/ProjectionsNew';
-import ProjectionsEdit from './components/projections/ProjectionsEdit';
+import ProjectionsIndex from './components/projections/ProjectionsIndex';
 import ProjectionsShow from './components/projections/ProjectionsShow';
+import ProjectionsEdit from './components/projections/ProjectionsEdit';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Navbar from './components/utility/Navbar';
@@ -25,8 +26,9 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route path="/new" component={ProjectionsNew} />
-              <Route path="/projections/:id/edit" component={ProjectionsEdit} />
+              <Route exact path="/projections" component={ProjectionsIndex} />
               <Route path="/projections/:id" component={ProjectionsShow} />
+              <Route path="/projections/:id/edit" component={ProjectionsEdit} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
             </Switch>
