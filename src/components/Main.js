@@ -120,8 +120,18 @@ class Main extends React.Component {
           }
         });
       });
-      this.setState({ constituencies: constituencies }, () => console.log(this.state));
+      this.setState({ constituencies: constituencies });
     }
+  }
+
+  handleSaveClick = () => {
+    const data = Object.assign({}, { modifiers: [ this.state.modifiers ]});
+    Axios
+      .post('/api/projections', data, {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      .then((res) => console.log(res))
+      .catch(err => this.setState({ errors: err.response.data.errors }));
   }
 
   render() {
@@ -136,6 +146,7 @@ class Main extends React.Component {
             <VoteShareChart voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
             <ModifiersDisplay voteShare={this.state.voteShare} setModifier={this.setModifier}/>
             <SeatsDisplay constituencyData={this.state.constituencies} />
+            {this.state.modifiers.swings.length > 0 && <button className="btn btn-primary" onClick={this.handleSaveClick}>Save projection</button>}
           </div>
         </section>
       );
