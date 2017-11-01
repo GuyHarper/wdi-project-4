@@ -4,6 +4,7 @@ import Map from './Map';
 import VoteShareChart from './VoteShareChart';
 import SeatsDisplay from './SeatsDisplay';
 import ModifiersDisplay from './ModifiersDisplay';
+import Auth from '../../lib/Auth';
 
 class Main extends React.Component {
   state = {
@@ -43,7 +44,9 @@ class Main extends React.Component {
 
   componentWillMount() {
     Axios
-      .get('/api/constituencies')
+      .get('/api/constituencies', {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
       .then(res => this.setState({ constituencies: res.data }, () => this.getVoteShare()))
       .catch(err => console.log(err));
   }
