@@ -37,9 +37,9 @@ class Main extends React.Component {
       { sf: 0 }
     ],
     modifiedTotalSeats: [],
-    modifiers: {
+    modifiers: [{
       swings: []
-    }
+    }]
   }
 
   componentWillMount() {
@@ -49,6 +49,7 @@ class Main extends React.Component {
       })
       .then(res => this.setState({ constituencies: res.data }, () => this.getVoteShare()))
       .catch(err => console.log(err));
+
   }
 
   getVoteShare() {
@@ -65,19 +66,27 @@ class Main extends React.Component {
       const partyShare = partyTotal / validTotal;
       partyResults[partyCode] = partyShare;
     });
-    this.setState({ voteShare: partyResults });
+    this.setState({ voteShare: partyResults }, () => this.loadModifiers());
+  }
+
+  loadModifiers() {
+    if(this.props.modifiers) {
+      this.setState({ modifiers: this.props.modifiers }, () => {
+        this.applyModifiersToVoteShare();
+      });
+    }
   }
 
   setModifier = (swings) => {
-    this.setState({ modifiers: { swings: swings }}, () => {
+    this.setState({ modifiers: [{ swings: swings }]}, () => {
       this.applyModifiersToVoteShare();
     });
   }
 
   applyModifiersToVoteShare = () => {
-    if(this.state.modifiers.swings.length > 0) {
+    if(this.state.modifiers[0].swings.length > 0) {
       const modifiedVoteShare = {...this.state.voteShare};
-      this.state.modifiers.swings.forEach((swing) => {
+      this.state.modifiers[0].swings.forEach((swing) => {
         modifiedVoteShare[swing.from] = (this.state.voteShare[swing.from] - swing.amount / 100);
         modifiedVoteShare[swing.to] = (this.state.voteShare[swing.to] + swing.amount / 100);
       });
@@ -98,9 +107,9 @@ class Main extends React.Component {
   }
 
   applyModifiersToConstituencyData = () => {
-    if(this.state.modifiers.swings.length > 0) {
+    if(this.state.modifiers[0].swings.length > 0) {
       const constituencies = [...this.state.constituencies];
-      this.state.modifiers.swings.forEach((swing) => {
+      this.state.modifiers[0].swings.forEach((swing) => {
         const percentageSwing = (swing.amount / 100) / this.state.voteShare[swing.from];
         constituencies.map((constituency) => {
           const votesSwing = parseInt(constituency[(swing.from).concat('2017')] * percentageSwing);
@@ -120,24 +129,14 @@ class Main extends React.Component {
           }
         });
       });
-      this.setState({ constituencies: constituencies });
+      this.setState({ constituencies: constituencies }, () => this.props.handleSetState(this.state));
     }
-  }
-
-  handleSaveClick = () => {
-    const data = Object.assign({}, { modifiers: [ this.state.modifiers ]});
-    Axios
-      .post('/api/projections', data, {
-        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
-      })
-      .then((res) => console.log(res))
-      .catch(err => this.setState({ errors: err.response.data.errors }));
   }
 
   render() {
     if(this.state.constituencies.length > 0) {
       return (
-        <section className="row">
+        <div className="row">
           <div className="col-6">
             <Map constituencyData={this.state.constituencies} />
           </div>
@@ -146,9 +145,8 @@ class Main extends React.Component {
             <VoteShareChart voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
             <ModifiersDisplay voteShare={this.state.voteShare} setModifier={this.setModifier}/>
             <SeatsDisplay constituencyData={this.state.constituencies} />
-            {this.state.modifiers.swings.length > 0 && <button className="btn btn-primary" onClick={this.handleSaveClick}>Save projection</button>}
           </div>
-        </section>
+        </div>
       );
     } else return false;
   }

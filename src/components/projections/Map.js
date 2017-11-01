@@ -1,6 +1,6 @@
 import React from 'react';
-import mapGeojsonExport from '../assets/wgs84-projection-fewer-dps';
-// import mapGeojsonExport from '../assets/wgs84-projection';
+import mapGeojsonExport from '../../assets/wgs84-projection-fewer-dps';
+// import mapGeojsonExport from '../../assets/wgs84-projection';
 import { geoMercator, geoPath } from 'd3-geo';
 
 class Map extends React.Component {

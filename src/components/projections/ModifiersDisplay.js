@@ -21,7 +21,6 @@ class ModifiersDisplay extends React.Component {
 
       const { swings, setSwing } = prevState;
       const existingSwingIndex = swings.findIndex(swing => swing.from === setSwing.from && swing.to === setSwing.to);
-      console.log(existingSwingIndex);
       if(existingSwingIndex >= 0) swings.splice(existingSwingIndex, 1);
 
       swings.push(prevState.setSwing);
