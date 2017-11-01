@@ -12,6 +12,7 @@ class ProjectionsShow extends React.Component {
       .get(`/api/projections/${this.props.match.params.id}`)
       .then(res => this.setState(res.data))
       .catch(err => {
+        if(err.response.status === 404) this.props.history.replace('/404');
         console.log(err);
       });
   }
