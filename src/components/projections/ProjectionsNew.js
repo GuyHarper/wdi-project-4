@@ -12,12 +12,15 @@ class ProjectionsNew extends React.Component {
   }
 
   handleSaveClick = () => {
-    const data = Object.assign({}, { modifiers: [ this.state.modifiers ]});
+    const data = Object.assign({}, { modifiers: this.state.modifiers});
     Axios
       .post('/api/projections', data, {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then((res) => this.props.history.push(`/projections/${res.data.id}`))
+      .then((res) => {
+        console.log(res.data);
+        this.props.history.push(`/projections/${res.data.id}`);
+      })
       .catch(err => console.log(err));
   }
 
