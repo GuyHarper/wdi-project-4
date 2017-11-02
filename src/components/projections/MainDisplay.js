@@ -107,6 +107,7 @@ class Main extends React.Component {
   }
 
   applyModifiersToConstituencyData = () => {
+    const partyCodes = Object.keys(this.state.voteShare);
     if(this.state.modifiers[0].swings.length > 0) {
       const constituencies = [...this.state.constituencies];
       this.state.modifiers[0].swings.forEach((swing) => {
@@ -121,13 +122,11 @@ class Main extends React.Component {
           const newTo = constituency[oldTo] + votesSwing;
           constituency[swing.from] = newFrom;
           constituency[swing.to] = newTo;
-          // need to calculate what the original winner would now get if they have a swing away from them
-          if(!constituency.winner) {
-            if(newTo > constituency[(constituency.winner2017).concat('2017')]) constituency.winner = swing.to;
-          } else {
-            if(newTo > constituency[constituency.winner]) constituency.winner = swing.to;
-            if(newFrom > constituency[constituency.winner] && newFrom > newTo ) constituency.winner = swing.from;
-          }
+          const numberOfVotesArray = partyCodes.map((partyCode) => {
+            if(constituency[partyCode] > 0) return constituency[partyCode];
+            else return constituency[`${partyCode}2017`];
+          });
+          if(newTo === numberOfVotesArray.reduce((a,b) => Math.max(a,b))) constituency.winner = swing.to;
         });
       });
       this.setState({ constituencies: constituencies }, () => this.props.handleSetState(this.state));
