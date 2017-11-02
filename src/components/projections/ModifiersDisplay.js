@@ -80,21 +80,19 @@ class ModifiersDisplay extends React.Component {
         {swingsDisplay.length > 0 && swingsDisplay.map((swing, i) => {
           return(
             <div key={i} className="row">
-              <p className="col-1">From</p>
-              <p className="col-2">{this.props.partyCodes[swing.from]}</p>
-              <p className="col-1">to</p>
-              <p className="col-2">{this.props.partyCodes[swing.to]}</p>
-              <div className="col-5 slider-container">
+              <p className="col-5">From {this.props.partyCodes[swing.from]} to {this.props.partyCodes[swing.to]}</p>
+              <div className="col-6 slider-container">
                 <input type="range" min="0" max={this.props.voteShare[swing.from] * 100} defaultValue="0" step="0.1" name="amount" onChange={this.handleExistingSwingChange} onMouseUp={this.handleSwingMouseUp} data-from={swing.from} data-to={swing.to} className={swing.sliderClass} />
               </div>
               <p className="col-1">{swing.amount}%</p>
             </div>
           );
         })}
-        {!this.state.newSwingToggle && <button className="btn btn-outline-primary btn-sm" onClick={this.handleAddSwingClick}>Add Swing</button>}
+        {!this.state.newSwingToggle && <button className="btn btn-outline-primary btn-sm" onClick={this.handleAddSwingClick} style={{marginRight: '5px'}}>Add Swing</button>}
+        {!this.state.newSwingToggle && this.state.swings.length > 0 && <button className="btn btn-outline-primary btn-sm" onClick={this.props.handleSaveClick}>Save projection</button>}
         {this.state.newSwingToggle &&
           <form className="row">
-            <label htmlFor="swing-from" className="col-1">From</label>
+            <label htmlFor="swing-from" className="col-2">From</label>
             <select id="swing-from" value={setSwing.from} onChange={this.handleNewSwingChange} name="from" className="col-2">
               <option value="" disabled>Select party</option>
               {partiesFrom.map((party) => {

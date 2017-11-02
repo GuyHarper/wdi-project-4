@@ -162,7 +162,7 @@ class Main extends React.Component {
             {this.state.modifiers[0].swings.length > 0 && <h1>Custom projection</h1>}
             <VoteShareChart partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
             <SeatsDisplay partyCodes={this.state.partyCodes} constituencyData={this.state.constituencies} />
-            {this.props.match.path !== '/projections/:id' && <ModifiersDisplay partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} setModifier={this.setModifier}/>}
+            {this.props.match.path !== '/projections/:id' && <ModifiersDisplay partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} setModifier={this.setModifier} handleSaveClick={this.props.handleSaveClick}/>}
           </div>
         </div>
       );
