@@ -5,7 +5,7 @@ const auth  = require('../controllers/auth');
 const secureRoute = require('../lib/secureRoute');
 
 router.route('/constituencies')
-  .get(secureRoute, constituencies.index);
+  .get(constituencies.index);
 
 router.route('/projections')
   .get(projections.index)
