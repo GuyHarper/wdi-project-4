@@ -24,8 +24,6 @@ class ModifiersDisplay extends React.Component {
         const modifiers = Object.assign({}, { setSwing, swings });
         return modifiers;
       }
-    }, () => {
-      console.log(this.state);
     });
   }
 
@@ -41,7 +39,6 @@ class ModifiersDisplay extends React.Component {
       const modifiers = Object.assign({}, prevState, { swings });
       return { modifiers };
     }, () => {
-      console.log(this.state);
       this.props.setModifier(this.state.swings);
     });
   }
@@ -53,7 +50,9 @@ class ModifiersDisplay extends React.Component {
   render() {
     const { setSwing, swings } = this.state;
     const partiesTo = Object.keys(this.props.voteShare);
+    partiesTo.splice(partiesTo.indexOf('other'),1);
     const partiesFrom = Object.keys(this.props.voteShare);
+    partiesFrom.splice(partiesFrom.indexOf('other'),1);
     if(setSwing.to) {
       partiesFrom.splice(partiesFrom.indexOf(setSwing.from), 1);
       swings.forEach(swing => {
@@ -71,25 +70,32 @@ class ModifiersDisplay extends React.Component {
     const swingsDisplay = [...swings];
     swingsDisplay.map((swing) => {
       if(setSwing.from === swing.from && setSwing.to === swing.to) swing.amount = setSwing.amount;
+      swing.sliderClass = `slider from-${swing.from} to-${swing.to}`;
       return swing;
     });
+
     return(
       <div>
-        <h2>Swings</h2>
+        <h2 className="h4">Swings</h2>
         {swingsDisplay.length > 0 && swingsDisplay.map((swing, i) => {
           return(
-            <div key={i}>
-              <p>From {swing.from} to {swing.to}</p>
-              <input type="range" min="0" max={this.props.voteShare[swing.from] * 100} defaultValue="0" step="0.1" name="amount" onChange={this.handleExistingSwingChange} onMouseUp={this.handleSwingMouseUp} data-from={swing.from} data-to={swing.to}/>
-              <p>{swing.amount}</p>
+            <div key={i} className="row">
+              <p className="col-1">From</p>
+              <p className="col-2">{swing.from}</p>
+              <p className="col-1">to</p>
+              <p className="col-2">{swing.to}</p>
+              <div className="col-5 slider-container">
+                <input type="range" min="0" max={this.props.voteShare[swing.from] * 100} defaultValue="0" step="0.1" name="amount" onChange={this.handleExistingSwingChange} onMouseUp={this.handleSwingMouseUp} data-from={swing.from} data-to={swing.to} className={swing.sliderClass} />
+              </div>
+              <p className="col-1">{swing.amount}</p>
             </div>
           );
         })}
         {!this.state.newSwingToggle && <button className="btn btn-primary" onClick={this.handleAddSwingClick}>Add Swing</button>}
         {this.state.newSwingToggle &&
-          <form>
-            <label htmlFor="swing-from">From</label>
-            <select id="swing-from" value={setSwing.from} onChange={this.handleNewSwingChange} name="from">
+          <form className="row">
+            <label htmlFor="swing-from" className="col-1">From</label>
+            <select id="swing-from" value={setSwing.from} onChange={this.handleNewSwingChange} name="from" className="col-2">
               <option value="" disabled>Select party</option>
               {partiesFrom.map((party) => {
                 return(
@@ -97,8 +103,8 @@ class ModifiersDisplay extends React.Component {
                 );
               })}
             </select>
-            <label htmlFor="swing-to">to</label>
-            <select id="swing-to" value={setSwing.to} onChange={this.handleNewSwingChange} name="to">
+            <label htmlFor="swing-to" className="col-1">to</label>
+            <select id="swing-to" value={setSwing.to} onChange={this.handleNewSwingChange} name="to" className="col-2">
               <option value="" disabled>Select party</option>
               {partiesTo.map((party) => {
                 return(

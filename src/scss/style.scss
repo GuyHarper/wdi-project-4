@@ -1,5 +1,41 @@
 @import './bootstrap/bootstrap.scss';
-@import './_custom-variables.scss';
+
+h1 {
+  color: theme-color("primary");
+}
+
+p {
+  &.lab {
+    color: $lab;
+  }
+  &.con {
+    color: $con;
+  }
+  &.ld {
+    color: $ld;
+  }
+  &.snp {
+    color: $snp;
+  }
+  &.pc {
+    color: $pc;
+  }
+  &.green {
+    color: $green;
+  }
+  &.ukip {
+    color: $ukip;
+  }
+  &.otherWinner {
+    color: $other;
+  }
+  &.dup {
+    color: $dup;
+  }
+  &.sf {
+    color: $sf;
+  }
+}
 
 path.constituency-path {
   stroke-width: 0.01;
@@ -94,4 +130,114 @@ div {
       font-size: $font-size-sm;
     }
   }
+}
+
+input {
+  &[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 20px;
+    outline: none;
+    overflow: hidden;
+  }
+  &.from-lab {
+    background: $lab;
+  }
+  &.from-con {
+    background: $con;
+  }
+  &.from-ld {
+    background: $ld;
+  }
+  &.from-snp {
+    background: $snp;
+  }
+  &.from-pc {
+    background: $pc;
+  }
+  &.from-green {
+    background: $green;
+  }
+  &.from-ukip {
+    background: $ukip;
+  }
+  &.from-dup {
+    background: $dup;
+  }
+  &.from-sf {
+    background: $sf;
+  }
+}
+
+input[type="range"].slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 9px;
+  height: 20px;
+  background-color: #fff;
+  cursor: pointer;
+}
+input[type="range"].to-lab::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $lab;
+  border-left: 2px solid $lab;
+}
+input[type="range"].to-con::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $con;
+  border-left: 2px solid $con;
+}
+input[type="range"].to-ld::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $ld;
+  border-left: 2px solid $ld;
+}
+input[type="range"].to-snp::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $snp;
+  border-left: 2px solid $snp;
+}
+input[type="range"].to-pc::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $pc;
+  border-left: 2px solid $pc;
+}
+input[type="range"].to-green::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $green;
+  border-left: 2px solid $green;
+}
+input[type="range"].to-ukip::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $ukip;
+  border-left: 2px solid $ukip;
+}
+input[type="range"].to-dup::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $dup;
+  border-left: 2px solid $dup;
+}
+input[type="range"].to-sf::-webkit-slider-thumb {
+  box-shadow: -400px 0 0 400px $sf;
+  border-left: 2px solid $sf;
+}
+input[type="range"].from-lab::-webkit-slider-thumb {
+  border-right: 2px solid $lab;
+}
+input[type="range"].from-con::-webkit-slider-thumb {
+  border-right: 2px solid $con;
+}
+input[type="range"].from-ld::-webkit-slider-thumb {
+  border-right: 2px solid $ld;
+}
+input[type="range"].from-snp::-webkit-slider-thumb {
+  border-right: 2px solid $snp;
+}
+input[type="range"].from-pc::-webkit-slider-thumb {
+  border-right: 2px solid $pc;
+}
+input[type="range"].from-green::-webkit-slider-thumb {
+  border-right: 2px solid $green;
+}
+input[type="range"].from-ukip::-webkit-slider-thumb {
+  border-right: 2px solid $ukip;
+}
+input[type="range"].from-dup::-webkit-slider-thumb {
+  border-right: 2px solid $dup;
+}
+input[type="range"].from-sf::-webkit-slider-thumb {
+  border-right: 2px solid $sf;
 }

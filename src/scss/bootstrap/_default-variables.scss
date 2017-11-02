@@ -1,14 +1,3 @@
-$lab: #d50000;
-$con: #0087dc;
-$ld: #fdbb30;
-$snp: #fff95d;
-$pc: #3f8428;
-$green: #6ab023;
-$ukip: #b3009d;
-$other: #aaa;
-$dup: #a11233;
-$sf: #00623f;
-
 // Variables
 //
 // Copy settings from this file into the provided `_custom.scss` to override
@@ -111,7 +100,7 @@ $colors: (
 ) !default;
 
 $theme-colors: (
-  primary: #ff5c33,
+  primary: $blue,
   secondary: $gray-600,
   success: $green,
   info: $cyan,

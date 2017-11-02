@@ -121,6 +121,7 @@ class Main extends React.Component {
           const newTo = constituency[oldTo] + votesSwing;
           constituency[swing.from] = newFrom;
           constituency[swing.to] = newTo;
+          // need to calculate what the original winner would now get if they have a swing away from them
           if(!constituency.winner) {
             if(newTo > constituency[(constituency.winner2017).concat('2017')]) constituency.winner = swing.to;
           } else {
@@ -137,10 +138,10 @@ class Main extends React.Component {
     if(this.state.constituencies.length > 0) {
       return (
         <div className="row">
-          <div className="col-6">
+          <div className="col-4">
             <Map constituencyData={this.state.constituencies} />
           </div>
-          <div className="col-6">
+          <div className="col-8">
             <h1>2017 General Election</h1>
             <VoteShareChart voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
             <ModifiersDisplay voteShare={this.state.voteShare} setModifier={this.setModifier}/>

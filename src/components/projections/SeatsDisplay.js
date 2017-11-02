@@ -18,12 +18,15 @@ const SeatsDisplay = ({ constituencyData }) => {
   constituencyData.sort(compare);
 
   return (
-    <div className="seats-display-container">
-      {constituencyData.map((constituency) => {
-        return(
-          <div key={constituency.code} className={`seat-display ${constituency.winner || constituency.winner2017}`}></div>
-        );
-      })}
+    <div>
+      <h2 className="h4">Seats</h2>
+      <div className="seats-display-container">
+        {constituencyData.map((constituency) => {
+          return(
+            <div key={constituency.code} className={`seat-display ${constituency.winner || constituency.winner2017}`}></div>
+          );
+        })}
+      </div>
     </div>
   );
 };
