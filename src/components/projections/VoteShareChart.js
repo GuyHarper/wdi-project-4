@@ -17,29 +17,58 @@ class VoteShareChart extends React.Component {
     return (
       <div className="vote-share-chart">
         <h2 className="h4">Vote share</h2>
-        {Object.keys(voteShare).map((party) => {
-          const style = {
-            width: voteShare[party] * chartWidth
-          };
-          return(
-            <div key={party} className="row">
-              <div className="col-2 party-label justify-content-end">
-                <p>
-                  {party}
-                </p>
-              </div>
-              <div className="col-10">
-                <div className="row align-items-center">
-                  <div className={`vote-share ${party}`} style={style}>
+        <div className="row">
+          <div className="col-6">
+            {Object.keys(voteShare).slice(0,5).map((party) => {
+              const style = {
+                width: voteShare[party] * chartWidth
+              };
+              return(
+                <div key={party} className="row">
+                  <div className="col-4 party-label justify-content-end">
+                    <p>
+                      {this.props.partyCodes[party]}
+                    </p>
                   </div>
-                  <p className="vote-share-percentage">
-                    {(voteShare[party] * 100).toFixed(2)}
-                  </p>
+                  <div className="col-8">
+                    <div className="row align-items-center">
+                      <div className={`vote-share ${party}`} style={style}>
+                      </div>
+                      <p className="vote-share-percentage">
+                        {(voteShare[party] * 100).toFixed(2)}%
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
+              );
+            })}
+          </div>
+          <div className="col-6">
+            {Object.keys(voteShare).slice(6,voteShare.length).map((party) => {
+              const style = {
+                width: voteShare[party] * chartWidth
+              };
+              return(
+                <div key={party} className="row">
+                  <div className="col-4 party-label justify-content-end">
+                    <p>
+                      {this.props.partyCodes[party]}
+                    </p>
+                  </div>
+                  <div className="col-8">
+                    <div className="row align-items-center">
+                      <div className={`vote-share ${party}`} style={style}>
+                      </div>
+                      <p className="vote-share-percentage">
+                        {(voteShare[party] * 100).toFixed(2)}%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }

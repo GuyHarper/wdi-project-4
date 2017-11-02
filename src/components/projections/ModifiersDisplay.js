@@ -75,23 +75,23 @@ class ModifiersDisplay extends React.Component {
     });
 
     return(
-      <div>
+      <div className="modifiers-display">
         <h2 className="h4">Swings</h2>
         {swingsDisplay.length > 0 && swingsDisplay.map((swing, i) => {
           return(
             <div key={i} className="row">
               <p className="col-1">From</p>
-              <p className="col-2">{swing.from}</p>
+              <p className="col-2">{this.props.partyCodes[swing.from]}</p>
               <p className="col-1">to</p>
-              <p className="col-2">{swing.to}</p>
+              <p className="col-2">{this.props.partyCodes[swing.to]}</p>
               <div className="col-5 slider-container">
                 <input type="range" min="0" max={this.props.voteShare[swing.from] * 100} defaultValue="0" step="0.1" name="amount" onChange={this.handleExistingSwingChange} onMouseUp={this.handleSwingMouseUp} data-from={swing.from} data-to={swing.to} className={swing.sliderClass} />
               </div>
-              <p className="col-1">{swing.amount}</p>
+              <p className="col-1">{swing.amount}%</p>
             </div>
           );
         })}
-        {!this.state.newSwingToggle && <button className="btn btn-primary" onClick={this.handleAddSwingClick}>Add Swing</button>}
+        {!this.state.newSwingToggle && <button className="btn btn-outline-primary btn-sm" onClick={this.handleAddSwingClick}>Add Swing</button>}
         {this.state.newSwingToggle &&
           <form className="row">
             <label htmlFor="swing-from" className="col-1">From</label>
@@ -99,7 +99,7 @@ class ModifiersDisplay extends React.Component {
               <option value="" disabled>Select party</option>
               {partiesFrom.map((party) => {
                 return(
-                  <option key={`${party}-from`} value={party}> {party}</option>
+                  <option key={`${party}-from`} value={party}>{this.props.partyCodes[party]}</option>
                 );
               })}
             </select>
@@ -108,7 +108,7 @@ class ModifiersDisplay extends React.Component {
               <option value="" disabled>Select party</option>
               {partiesTo.map((party) => {
                 return(
-                  <option key={`${party}-to`} value={party}>{party}</option>
+                  <option key={`${party}-to`} value={party}>{this.props.partyCodes[party]}</option>
                 );
               })}
             </select>

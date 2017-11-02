@@ -12,12 +12,17 @@ const Navbar = ({ history }) => {
   }
 
   return(
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar">
+      <div className="navbar-left">
+        <div className="navbar-brand">
+          <Link to="/">Election Mapper</Link>
+        </div>
+      </div>
       <div className="navbar-right">
-      {!Auth.isAuthenticated() && <Link to="/login" className="btn btn-primary">Login</Link>}
-      {!Auth.isAuthenticated() && <Link to="/register" className="btn btn-primary">Register</Link>}
-      {Auth.isAuthenticated() && <a href="#" onClick={logout} className="btn btn-primary">Logout</a>}
-    </div>
+        {!Auth.isAuthenticated() && <Link to="/login">Login</Link>}
+        {!Auth.isAuthenticated() && <Link to="/register">Register</Link>}
+        {Auth.isAuthenticated() && <a href="#" onClick={logout}>Logout</a>}
+      </div>
     </nav>
   );
 };

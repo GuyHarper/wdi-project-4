@@ -27,8 +27,8 @@ class ProjectionsNew extends React.Component {
   render() {
     return (
       <section>
-        <MainDisplay handleSetState={this.handleSetState}/>
-        {this.state.modifiers && <button className="btn btn-primary" onClick={this.handleSaveClick}>Save projection</button>}
+        <MainDisplay handleSetState={this.handleSetState} handleSaveClick={this.handleSaveClick}/>
+        {this.state.modifiers && <button className="btn btn-outline-primary" onClick={this.props.handleSaveClick}>Save projection</button>}
       </section>
     );
   }

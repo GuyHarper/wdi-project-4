@@ -5,9 +5,25 @@ import VoteShareChart from './VoteShareChart';
 import SeatsDisplay from './SeatsDisplay';
 import ModifiersDisplay from './ModifiersDisplay';
 import Auth from '../../lib/Auth';
+import { withRouter } from 'react-router-dom';
 
 class Main extends React.Component {
   state = {
+    partyCodes: {
+      con: 'Conservatives',
+      lab: 'Labour',
+      ld: 'Lib Dems',
+      snp: 'SNP',
+      ukip: 'UKIP',
+      green: 'Green',
+      dup: 'DUP',
+      sf: 'SF',
+      pc: 'Plaid Cymru',
+      sdlp: 'SDLP',
+      uup: 'UUP',
+      alliance: 'Alliance',
+      other: 'Other'
+    },
     constituencies: [],
     voteShare: {
       con: 0,
@@ -135,16 +151,18 @@ class Main extends React.Component {
 
   render() {
     if(this.state.constituencies.length > 0) {
+      console.log(this.props);
       return (
         <div className="row">
-          <div className="col-4">
+          <div className="col-5">
             <Map constituencyData={this.state.constituencies} />
           </div>
-          <div className="col-8">
-            <h1>2017 General Election</h1>
-            <VoteShareChart voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
-            <ModifiersDisplay voteShare={this.state.voteShare} setModifier={this.setModifier}/>
-            <SeatsDisplay constituencyData={this.state.constituencies} />
+          <div className="col-6">
+            {!(this.state.modifiers[0].swings.length > 0) && <h1>2017 General Election</h1>}
+            {this.state.modifiers[0].swings.length > 0 && <h1>Custom projection</h1>}
+            <VoteShareChart partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
+            <SeatsDisplay partyCodes={this.state.partyCodes} constituencyData={this.state.constituencies} />
+            {this.props.match.path !== '/projections/:id' && <ModifiersDisplay partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} setModifier={this.setModifier}/>}
           </div>
         </div>
       );
@@ -152,4 +170,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+export default withRouter(Main);

@@ -32,7 +32,7 @@ class Map extends React.Component {
         }
       });
     return (
-      <svg width="500" height="700" viewBox="480 230 25 20">
+      <svg width="100%" height="93vh" viewBox="482 224 19 30">
         {constituencyPaths}
       </svg>
     );
