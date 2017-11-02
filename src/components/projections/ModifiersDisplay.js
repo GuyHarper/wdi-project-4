@@ -68,10 +68,15 @@ class ModifiersDisplay extends React.Component {
         if(setSwing.from === swing.to) partiesTo.splice(partiesTo.indexOf(swing.from), 1);
       });
     }
+    const swingsDisplay = [...swings];
+    swingsDisplay.map((swing) => {
+      if(setSwing.from === swing.from && setSwing.to === swing.to) swing.amount = setSwing.amount;
+      return swing;
+    });
     return(
       <div>
         <h2>Swings</h2>
-        {this.state.swings.length > 0 && this.state.swings.map((swing, i) => {
+        {swingsDisplay.length > 0 && swingsDisplay.map((swing, i) => {
           return(
             <div key={i}>
               <p>From {swing.from} to {swing.to}</p>
