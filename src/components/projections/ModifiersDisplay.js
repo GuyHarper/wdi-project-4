@@ -12,6 +12,10 @@ class ModifiersDisplay extends React.Component {
     newSwingToggle: false
   }
 
+  componentWillMount = () => {
+    this.setState({ swings: this.props.modifiers[0].swings }, () => console.log(this.state));
+  }
+
   handleNewSwingChange = ({ target: { name, value }}) => {
     this.setState(prevState => {
       const setSwing = Object.assign({}, prevState.setSwing, { [name]: value });
@@ -73,7 +77,6 @@ class ModifiersDisplay extends React.Component {
       swing.sliderClass = `slider from-${swing.from} to-${swing.to}`;
       return swing;
     });
-
     return(
       <div className="modifiers-display">
         <h2 className="h4">Swings</h2>
@@ -81,15 +84,15 @@ class ModifiersDisplay extends React.Component {
           return(
             <div key={i} className="row">
               <p className="col-5">From {this.props.partyCodes[swing.from]} to {this.props.partyCodes[swing.to]}</p>
-              <div className="col-6 slider-container">
+              {this.props.path !== '/projections/:id' && <div className="col-6 slider-container">
                 <input type="range" min="0" max={this.props.voteShare[swing.from] * 100} defaultValue="0" step="0.1" name="amount" onChange={this.handleExistingSwingChange} onMouseUp={this.handleSwingMouseUp} data-from={swing.from} data-to={swing.to} className={swing.sliderClass} />
-              </div>
+              </div>}
               <p className="col-1">{swing.amount}%</p>
             </div>
           );
         })}
-        {!this.state.newSwingToggle && <button className="btn btn-outline-primary btn-sm" onClick={this.handleAddSwingClick} style={{marginRight: '5px'}}>Add Swing</button>}
-        {!this.state.newSwingToggle && this.state.swings.length > 0 && <button className="btn btn-outline-primary btn-sm" onClick={this.props.handleSaveClick}>Save projection</button>}
+        {!this.state.newSwingToggle && this.props.path !== '/projections/:id' && <button className="btn btn-outline-primary btn-sm" onClick={this.handleAddSwingClick} style={{marginRight: '5px'}}>Add Swing</button>}
+        {!this.state.newSwingToggle && this.state.swings.length > 0 && this.props.path !== '/projections/:id' && <button className="btn btn-outline-primary btn-sm" onClick={this.props.handleSaveClick}>Save projection</button>}
         {this.state.newSwingToggle &&
           <form className="row">
             <label htmlFor="swing-from" className="col-2">From</label>

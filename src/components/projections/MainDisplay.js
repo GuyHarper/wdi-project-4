@@ -40,19 +40,22 @@ class Main extends React.Component {
       alliance: 0,
       other: 0
     },
-    totalSeats: [
-      { lab: 0 },
-      { con: 0 },
-      { ld: 0 },
-      { snp: 0 },
-      { pc: 0 },
-      { green: 0 },
-      { ukip: 0 },
-      { other: 0 },
-      { dup: 0 },
-      { sf: 0 }
-    ],
-    modifiedTotalSeats: [],
+    totalSeats: {
+      con: 0,
+      lab: 0,
+      ld: 0,
+      snp: 0,
+      ukip: 0,
+      green: 0,
+      dup: 0,
+      sf: 0,
+      pc: 0,
+      sdlp: 0,
+      uup: 0,
+      alliance: 0,
+      other: 0
+    },
+    modifiedTotalSeats: {},
     modifiers: [{
       swings: []
     }]
@@ -149,19 +152,23 @@ class Main extends React.Component {
     }
   }
 
+  setTotalSeats = (seats) => {
+    this.setState({ totalSeats: seats }, () => console.log(this.state));
+  }
+
   render() {
     if(this.state.constituencies.length > 0) {
       return (
         <div className="row">
           <div className="col-5">
-            <Map constituencyData={this.state.constituencies} />
+            <Map constituencyData={this.state.constituencies} setTotalSeats={this.setTotalSeats}/>
           </div>
           <div className="col-6">
             {!(this.state.modifiers[0].swings.length > 0) && <h1>2017 General Election</h1>}
             {this.state.modifiers[0].swings.length > 0 && <h1>Custom projection</h1>}
             <VoteShareChart partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
             <SeatsDisplay partyCodes={this.state.partyCodes} constituencyData={this.state.constituencies} />
-            {this.props.match.path !== '/projections/:id' && <ModifiersDisplay partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} setModifier={this.setModifier} handleSaveClick={this.props.handleSaveClick}/>}
+            <ModifiersDisplay partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} setModifier={this.setModifier} handleSaveClick={this.props.handleSaveClick} modifiers={this.props.modifiers} path={this.props.match.path}/>
           </div>
         </div>
       );
