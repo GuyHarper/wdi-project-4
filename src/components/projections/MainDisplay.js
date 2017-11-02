@@ -103,8 +103,8 @@ class Main extends React.Component {
     if(this.state.modifiers[0].swings.length > 0) {
       const modifiedVoteShare = {...this.state.voteShare};
       this.state.modifiers[0].swings.forEach((swing) => {
-        modifiedVoteShare[swing.from] = (this.state.voteShare[swing.from] - swing.amount / 100);
-        modifiedVoteShare[swing.to] = (this.state.voteShare[swing.to] + swing.amount / 100);
+        modifiedVoteShare[swing.from] = (modifiedVoteShare[swing.from] - swing.amount / 100);
+        modifiedVoteShare[swing.to] = (modifiedVoteShare[swing.to] + swing.amount / 100);
       });
       this.setState({ modifiedVoteShare: modifiedVoteShare }, () => this.resetConstituencyData());
     }
@@ -151,7 +151,6 @@ class Main extends React.Component {
 
   render() {
     if(this.state.constituencies.length > 0) {
-      console.log(this.props);
       return (
         <div className="row">
           <div className="col-5">
