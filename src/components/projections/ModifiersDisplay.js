@@ -29,19 +29,15 @@ class ModifiersDisplay extends React.Component {
     });
   }
 
-
   handleExistingSwingChange = ({ target }) => {
     this.setState({ setSwing: { from: target.getAttribute('data-from'), to: target.getAttribute('data-to'), amount: target.value }});
   }
 
   handleSwingMouseUp = () => {
     this.setState(prevState => {
-
       const { swings, setSwing } = prevState;
       const existingSwingIndex = swings.findIndex(swing => swing.from === setSwing.from && swing.to === setSwing.to);
-      if(existingSwingIndex >= 0) swings.splice(existingSwingIndex, 1);
-      // fix this - need swings not changing order on mouseup when updating previous
-      swings.push(prevState.setSwing);
+      swings.splice(existingSwingIndex, 1, prevState.setSwing);
       const modifiers = Object.assign({}, prevState, { swings });
       return { modifiers };
     }, () => {
