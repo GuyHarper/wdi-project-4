@@ -29,12 +29,14 @@ class Register extends React.Component {
 
   render() {
     return (
-      <RegisterForm
-        user={this.state.user}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        errors={this.state.errors}
-      />
+      <section className="container-fluid">
+        <RegisterForm
+          user={this.state.user}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          errors={this.state.errors}
+        />
+      </section>
     );
   }
 }

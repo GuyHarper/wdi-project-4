@@ -33,7 +33,7 @@ class ProjectionsShow extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="container-fluid">
         <MainDisplay modifiers={this.state.modifiers} handleSetState={this.handleSetState}/>
         <Link to={`/projections/${this.props.match.params.id}/edit`} className="btn btn-primary">Edit</Link>
         <button className="btn btn-primary" onClick={this.deleteProjection}>Delete</button>

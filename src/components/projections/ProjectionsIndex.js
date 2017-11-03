@@ -23,7 +23,7 @@ class ProjectionsIndex extends React.Component {
 
   render() {
     return (
-      <div>
+      <section className="container-fluid">
         <div>
           {Auth.isAuthenticated() && <Link to="/projections/new" className="btn btn-primary">Make a new projection</Link>}
         </div>
@@ -48,7 +48,7 @@ class ProjectionsIndex extends React.Component {
             );
           })}
         </div>
-      </div>
+      </section>
     );
   }
 }

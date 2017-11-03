@@ -86,7 +86,7 @@ class ModifiersDisplay extends React.Component {
           return(
             <div key={i} className="row">
               <p className="col-5">From {this.props.partyCodes[swing.from]} to {this.props.partyCodes[swing.to]}</p>
-              {this.props.match.path !== '/projections/:id' && <div className="col-6 slider-container">
+              {this.props.match.path !== '/projections/:id' && <div className="col-5 slider-container">
                 <input type="range" min="0" max={this.props.voteShare[swing.from] * 100} defaultValue="0" step="0.1" name="amount" onChange={this.handleExistingSwingChange} onMouseUp={this.handleSwingMouseUp} data-from={swing.from} data-to={swing.to} className={swing.sliderClass} />
               </div>}
               <p className="col-1">{swing.amount}%</p>

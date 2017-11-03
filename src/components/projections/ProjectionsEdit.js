@@ -32,7 +32,7 @@ class ProjectionsEdit extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="container-fluid">
         <MainDisplay handleSetState={this.handleSetState} modifiers={this.state.modifiers} handleUpdateClick={this.handleUpdateClick}/>
         {this.state.modifiers && <button className="btn btn-primary" onClick={this.handleUpdateClick}>Save projection</button>}
       </section>

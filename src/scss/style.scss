@@ -8,6 +8,9 @@ body {
 h1 {
   margin-top: 20px;
   color: theme-color("primary");
+  &.frontpage-heading {
+    color: #fff;
+  }
 }
 
 .h4 {
@@ -141,6 +144,38 @@ div {
   }
   &.sf {
     background-color: $sf;
+  }
+  &.frontpage-container {
+    height: 93vh;
+    width: 100%;
+    &:before {
+      content: "";
+      background-image: url('/assets/votecount.jpg');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      width: 110%;
+      height: 110%;
+      left: -5%;
+      top: -5%;
+      z-index: -1;
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      filter: blur(5px);
+    }
+    .heading-container {
+      margin-top: 15%;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    .buttons-container {
+      .btn {
+        margin: 10px;
+      }
+    }
   }
   &.seats-display-container {
     display: flex;

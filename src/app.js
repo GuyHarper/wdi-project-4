@@ -23,7 +23,7 @@ class App extends React.Component {
           <header>
             <Navbar />
           </header>
-          <main className="container-fluid">
+          <main>
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route path="/new" component={ProjectionsNew} />

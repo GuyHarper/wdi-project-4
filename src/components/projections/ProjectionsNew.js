@@ -26,7 +26,7 @@ class ProjectionsNew extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="container-fluid">
         <MainDisplay handleSetState={this.handleSetState} handleSaveClick={this.handleSaveClick}/>
       </section>
     );
