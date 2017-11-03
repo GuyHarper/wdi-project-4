@@ -10,8 +10,8 @@ import { withRouter, Link } from 'react-router-dom';
 class Main extends React.Component {
   state = {
     partyCodes: {
-      con: 'Conservatives',
-      lab: 'Labour',
+      con: 'Con',
+      lab: 'Lab',
       ld: 'Lib Dems',
       snp: 'SNP',
       ukip: 'UKIP',
