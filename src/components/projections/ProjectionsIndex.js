@@ -47,7 +47,7 @@ class ProjectionsIndex extends React.Component {
           })}
         </div>
         <div className="row justify-content-center index-button-container">
-          {Auth.isAuthenticated() && <Link to="/projections/new" className="btn btn-outline-primary">Make a new projection</Link>}
+          {Auth.isAuthenticated() && <Link to="/new" className="btn btn-outline-primary">Make a new projection</Link>}
         </div>
       </section>
     );
