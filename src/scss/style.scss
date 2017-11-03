@@ -18,6 +18,7 @@ h1 {
 }
 
 button {
+  margin-top: 5px;
   &:hover {
     cursor: pointer;
   }
@@ -31,6 +32,9 @@ nav {
 
 p {
   color: #333;
+  &.seat-count {
+    font-size: $font-size-sm;
+  }
   &.lab {
     color: $lab;
   }
@@ -51,6 +55,9 @@ p {
   }
   &.ukip {
     color: $ukip;
+  }
+  &.other {
+    color: $other;
   }
   &.otherWinner {
     color: $other;
@@ -142,6 +149,19 @@ div {
       min-width: 7px;
       min-height: 7px;
       margin: 1px;
+    }
+  }
+  &.seats-chart {
+    .party-label {
+      display: flex;
+      font-size: $font-size-sm;
+    }
+    .total-seats {
+      height: 25px;
+    }
+    .total-seats-number {
+      margin: 0 0 0 5px;
+      font-size: $font-size-sm;
     }
   }
   &.vote-share-chart {

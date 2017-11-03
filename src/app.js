@@ -28,8 +28,8 @@ class App extends React.Component {
               <Route exact path="/" component={LandingPage} />
               <Route path="/new" component={ProjectionsNew} />
               <Route exact path="/projections" component={ProjectionsIndex} />
-              <Route path="/projections/:id" component={ProjectionsShow} />
               <Route path="/projections/:id/edit" component={ProjectionsEdit} />
+              <Route path="/projections/:id" component={ProjectionsShow} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route component={NoRoute} />
