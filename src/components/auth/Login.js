@@ -31,12 +31,16 @@ class Login extends React.Component {
   render() {
     return (
       <section className="container-fluid">
-        <LoginForm
-          credentials={this.state.credentials}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          error={this.state.error}
-        />
+        <div className="row login-register-container justify-content-center">
+          <div className="col-4">
+            <LoginForm
+              credentials={this.state.credentials}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              error={this.state.error}
+            />
+          </div>
+        </div>
       </section>
     );
   }

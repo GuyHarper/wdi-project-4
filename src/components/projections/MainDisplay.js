@@ -63,11 +63,11 @@ class Main extends React.Component {
 
   componentWillMount() {
     Axios
-    .get('/api/constituencies', {
-      headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
-    })
-    .then(res => this.setState({ constituencies: res.data }, () => this.getVoteShare()))
-    .catch(err => console.log(err));
+      .get('/api/constituencies', {
+        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+      })
+      .then(res => this.setState({ constituencies: res.data }, () => this.getVoteShare()))
+      .catch(err => console.log(err));
 
   }
 

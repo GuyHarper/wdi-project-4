@@ -30,12 +30,16 @@ class Register extends React.Component {
   render() {
     return (
       <section className="container-fluid">
-        <RegisterForm
-          user={this.state.user}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          errors={this.state.errors}
-        />
+        <div className="row login-register-container justify-content-center">
+          <div className="col-4">
+            <RegisterForm
+              user={this.state.user}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              errors={this.state.errors}
+            />
+          </div>
+        </div>
       </section>
     );
   }

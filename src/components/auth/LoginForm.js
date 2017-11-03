@@ -2,8 +2,8 @@ import React from 'react';
 
 const LoginForm = ({ handleChange, handleSubmit, credentials, error }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
+    <form onSubmit={handleSubmit} className="row justify-content-center">
+      <div className="col-12 form-group">
         <input
           type="text"
           name="email"
@@ -13,7 +13,7 @@ const LoginForm = ({ handleChange, handleSubmit, credentials, error }) => {
           className="form-control"
         />
       </div>
-      <div className="form-group">
+      <div className="col-12 form-group">
         <input
           type="password"
           name="password"
@@ -24,7 +24,9 @@ const LoginForm = ({ handleChange, handleSubmit, credentials, error }) => {
         />
         {error && <small className="has-error">{error}</small>}
       </div>
-      <button className="btn btn-primary">Login</button>
+      <div className="col-auto">
+        <button className="btn btn-primary">Login</button>
+      </div>
     </form>
   );
 };

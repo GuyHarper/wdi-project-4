@@ -2,8 +2,8 @@ import React from 'react';
 
 const RegisterForm = ({ handleChange, handleSubmit, user, errors }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <div className={errors.firstname ? 'form-group has-error' : 'form-group'}>
+    <form onSubmit={handleSubmit} className="row justify-content-center">
+      <div className={errors.firstname ? 'col-12 form-group has-error' : 'col-12 form-group'}>
         <input
           type="text"
           name="firstname"
@@ -14,7 +14,7 @@ const RegisterForm = ({ handleChange, handleSubmit, user, errors }) => {
         />
         {errors.firstname && <small className="has-error">{errors.firstname}</small>}
       </div>
-      <div className={errors.lastname ? 'form-group has-error' : 'form-group'}>
+      <div className={errors.lastname ? 'col-12 form-group has-error' : 'col-12 form-group'}>
         <input
           type="text"
           name="lastname"
@@ -25,7 +25,7 @@ const RegisterForm = ({ handleChange, handleSubmit, user, errors }) => {
         />
         {errors.lastname && <small className="has-error">{errors.lastname}</small>}
       </div>
-      <div className={errors.email ? 'form-group has-error' : 'form-group'}>
+      <div className={errors.email ? 'col-12 form-group has-error' : 'col-12 form-group'}>
         <input
           type="text"
           name="email"
@@ -36,7 +36,7 @@ const RegisterForm = ({ handleChange, handleSubmit, user, errors }) => {
         />
         {errors.email && <small className="has-error">{errors.email}</small>}
       </div>
-      <div className={errors.password ? 'form-group has-error' : 'form-group'}>
+      <div className={errors.password ? 'col-12 form-group has-error' : 'col-12 form-group'}>
         <input
           type="password"
           name="password"
@@ -47,7 +47,7 @@ const RegisterForm = ({ handleChange, handleSubmit, user, errors }) => {
         />
         {errors.password && <small className="has-error">{errors.password}</small>}
       </div>
-      <div className={errors.passwordConfirmation ? 'form-group has-error' : 'form-group'}>
+      <div className={errors.passwordConfirmation ? 'col-12 form-group has-error' : 'col-12 form-group'}>
         <input
           type="password"
           name="passwordConfirmation"
@@ -58,8 +58,9 @@ const RegisterForm = ({ handleChange, handleSubmit, user, errors }) => {
         />
         {errors.passwordConfirmation && <small className="has-error">{errors.passwordConfirmation}</small>}
       </div>
-
-      <button className="btn btn-primary">Login</button>
+      <div className="col-auto">
+        <button className="btn btn-primary">Register</button>
+      </div>
     </form>
   );
 };
