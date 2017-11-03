@@ -100,7 +100,7 @@ class SeatsDisplay extends React.Component {
               })}
             </div>
             <div className="col-6">
-              {Object.keys(partyCodes).slice(6,partyCodes.length).map((party) => {
+              {Object.keys(partyCodes).slice(5,partyCodes.length).map((party) => {
                 const style = {
                   width: totalSeats[party] / 650 * chartWidth
                 };

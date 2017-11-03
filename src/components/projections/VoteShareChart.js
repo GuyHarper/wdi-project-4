@@ -44,7 +44,7 @@ class VoteShareChart extends React.Component {
             })}
           </div>
           <div className="col-6">
-            {Object.keys(voteShare).slice(6,voteShare.length).map((party) => {
+            {Object.keys(voteShare).slice(5,voteShare.length).map((party) => {
               const style = {
                 width: voteShare[party] * chartWidth
               };
