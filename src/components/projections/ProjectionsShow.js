@@ -27,16 +27,14 @@ class ProjectionsShow extends React.Component {
       .delete(`/api/projections/${this.props.match.params.id}`, {
         headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
       })
-      .then(() => this.props.history.push('/new'))
+      .then(() => this.props.history.push('/projections'))
       .catch(err => console.log(err));
   }
 
   render() {
     return (
       <section className="container-fluid">
-        <MainDisplay modifiers={this.state.modifiers} handleSetState={this.handleSetState}/>
-        <Link to={`/projections/${this.props.match.params.id}/edit`} className="btn btn-primary">Edit</Link>
-        <button className="btn btn-primary" onClick={this.deleteProjection}>Delete</button>
+        <MainDisplay modifiers={this.state.modifiers} handleSetState={this.handleSetState} deleteProjection={this.deleteProjection}/>
       </section>
     );
   }

@@ -94,7 +94,8 @@ class ModifiersDisplay extends React.Component {
           );
         })}
         {!this.state.newSwingToggle && this.props.match.path !== '/projections/:id' && <button className="btn btn-outline-primary btn-sm" onClick={this.handleAddSwingClick} style={{marginRight: '5px'}}>Add Swing</button>}
-        {!this.state.newSwingToggle && this.state.swings.length > 0 && this.props.match.path !== '/projections/:id' && <button className="btn btn-outline-primary btn-sm" onClick={this.props.handleSaveClick}>Save projection</button>}
+        {!this.state.newSwingToggle && this.state.swings.length > 0 && this.props.match.path === '/new' && <button className="btn btn-outline-primary btn-sm" onClick={this.props.handleSaveClick}>Save projection</button>}
+        {!this.state.newSwingToggle && this.state.swings.length > 0 && this.props.match.path === '/projections/:id/edit' && <button className="btn btn-outline-primary btn-sm" onClick={this.props.handleUpdateClick}>Save projection</button>}
         {this.state.newSwingToggle &&
           <form className="row">
             <label htmlFor="swing-from" className="col-2">From</label>

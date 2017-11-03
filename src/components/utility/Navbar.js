@@ -21,6 +21,8 @@ const Navbar = ({ history }) => {
       <div className="navbar-nav ml-auto">
         {!Auth.isAuthenticated() && <Link to="/login" className="nav-item nav-link">Login</Link>}
         {!Auth.isAuthenticated() && <Link to="/register" className="nav-item nav-link">Register</Link>}
+        {Auth.isAuthenticated() && <Link to="/new" className="nav-item nav-link">Make a projection</Link>}
+        {Auth.isAuthenticated() && <Link to="/projections" className="nav-item nav-link">Projections</Link>}
         {Auth.isAuthenticated() && <a href="#" onClick={logout} className="nav-item nav-link">Logout</a>}
       </div>
     </nav>

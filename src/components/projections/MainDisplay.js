@@ -5,7 +5,7 @@ import VoteShareChart from './VoteShareChart';
 import SeatsDisplay from './SeatsDisplay';
 import ModifiersDisplay from './ModifiersDisplay';
 import Auth from '../../lib/Auth';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class Main extends React.Component {
   state = {
@@ -63,11 +63,11 @@ class Main extends React.Component {
 
   componentWillMount() {
     Axios
-      .get('/api/constituencies', {
-        headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
-      })
-      .then(res => this.setState({ constituencies: res.data }, () => this.getVoteShare()))
-      .catch(err => console.log(err));
+    .get('/api/constituencies', {
+      headers: { 'Authorization': 'Bearer ' + Auth.getToken() }
+    })
+    .then(res => this.setState({ constituencies: res.data }, () => this.getVoteShare()))
+    .catch(err => console.log(err));
 
   }
 
@@ -165,10 +165,21 @@ class Main extends React.Component {
           </div>
           <div className="col-6">
             {!(this.state.modifiers[0].swings.length > 0) && <h1>2017 General Election</h1>}
-            {this.state.modifiers[0].swings.length > 0 && <h1>Custom projection</h1>}
+            {(this.state.modifiers[0].swings.length > 0) && this.props.match.path !== '/projections/:id' && <h1>Custom projection</h1>}
+            {this.state.modifiers[0].swings.length > 0 && this.props.match.path === '/projections/:id' &&
+              <div className="row align-items-center">
+                <h1 className="col-auto">Custom projection</h1>
+                <div className="col-1 heading-button-container">
+                  <Link to={`/projections/${this.props.match.params.id}/edit`} className="btn btn-sm btn-outline-primary">Edit</Link>
+                </div>
+                <div className="col-1 heading-button-container">
+                  <button className="btn btn-sm btn-outline-primary" onClick={this.props.deleteProjection}>Delete</button>
+                </div>
+              </div>
+            }
             <VoteShareChart partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} modifiers={this.state.modifiers} modifiedVoteShare={this.state.modifiedVoteShare}/>
             <SeatsDisplay partyCodes={this.state.partyCodes} constituencyData={this.state.constituencies} />
-            <ModifiersDisplay partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} setModifier={this.setModifier} handleSaveClick={this.props.handleSaveClick} modifiers={this.props.modifiers} path={this.props.match.path}/>
+            <ModifiersDisplay partyCodes={this.state.partyCodes} voteShare={this.state.voteShare} setModifier={this.setModifier} handleSaveClick={this.props.handleSaveClick} handleUpdateClick={this.props.handleUpdateClick} modifiers={this.props.modifiers} path={this.props.match.path}/>
           </div>
         </div>
       );

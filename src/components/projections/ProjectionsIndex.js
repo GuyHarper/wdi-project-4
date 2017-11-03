@@ -23,11 +23,9 @@ class ProjectionsIndex extends React.Component {
 
   render() {
     return (
-      <section className="container-fluid">
-        <div>
-          {Auth.isAuthenticated() && <Link to="/projections/new" className="btn btn-primary">Make a new projection</Link>}
-        </div>
-        <div className="row">
+      <section className="container">
+
+        <div className="index-container row align-items-center">
           {this.state.projections.length > 1 && this.state.projections.map(projection => {
             return(
               <div key={projection.id} className="col col-3">
@@ -37,7 +35,7 @@ class ProjectionsIndex extends React.Component {
                       <ul>
                         {projection.modifiers[0].swings.map(swing => {
                           return(
-                            <li key={swing.id}>{swing.amount}pts from {swing.from} to {swing.to}</li>
+                            <li className="text-center" key={swing.id}>{swing.amount}pts from {swing.from} to {swing.to}</li>
                           );
                         })}
                       </ul>
@@ -47,6 +45,9 @@ class ProjectionsIndex extends React.Component {
               </div>
             );
           })}
+        </div>
+        <div className="row justify-content-center index-button-container">
+          {Auth.isAuthenticated() && <Link to="/projections/new" className="btn btn-outline-primary">Make a new projection</Link>}
         </div>
       </section>
     );
