@@ -5,6 +5,10 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
+main {
+  height: 100%;
+}
+
 h1 {
   margin-top: 20px;
   color: theme-color("primary");
@@ -175,10 +179,14 @@ div {
       filter: blur(5px);
     }
     .heading-container {
-      margin-top: 15%;
+      padding-top: 15%;
     }
     h1 {
       margin-top: 0;
+    }
+    .row {
+      margin-right: 0;
+      margin-left: 0;
     }
     .buttons-container {
       .btn {
