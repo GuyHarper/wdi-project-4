@@ -12,7 +12,7 @@
     "seed": "node db/seeds",
     "test:client": "node_modules/.bin/_mocha test/client/helper \"test/client/**/*_test.js\"",
     "test:server": "node_modules/.bin/_mocha \"test/api/**/*_test.js\"",
-    "test": "yarn test:server && yarn test:client"
+    "test": "nyc --reporter=html --reporter=text mocha --exit"
   },
   "dependencies": {
     "axios": "^0.17.0",
@@ -54,6 +54,7 @@
     "jsdom": "^11.3.0",
     "mocha": "^4.1.0",
     "node-sass": "^4.5.3",
+    "nyc": "^11.4.1",
     "react-test-renderer": "15",
     "sass-loader": "^6.0.6",
     "sinon": "^4.0.1",
